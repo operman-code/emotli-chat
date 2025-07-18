@@ -1,0 +1,9 @@
+All rights reserved.
+
+This software and source code is the intellectual property of operman.in.
+
+Unauthorized copying, modification, distribution, or reuse of any part of this codebase is strictly prohibited without prior written consent.
+
+Any violation may result in legal action under applicable copyright law.
+
+2025 © Operman.in
