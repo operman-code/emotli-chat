@@ -180,6 +180,4 @@ export const setupChatSocket = (io) => {
       console.log(`User disconnected: ${socket.id}`);
     });
   });
-};`));
-  });
 };

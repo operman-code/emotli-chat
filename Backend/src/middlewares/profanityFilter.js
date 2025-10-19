@@ -33,5 +33,5 @@ export const profanityFilter = (req, res, next) => {
   }
   
   next();
-};t();
 };
+
