@@ -1,0 +1,138 @@
+/* Groups.css */
+.groups-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 30px;
+}
+
+.groups-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.groups-header h1 {
+  font-size: 2rem;
+  color: #333;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.create-group-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.create-group-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.create-group-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.groups-list {
+  display: grid;
+  gap: 20px;
+}
+
+.group-item {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.group-item:hover {
+  transform: translateY(-2px);
+}
+
+.group-info h3 {
+  color: #333;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.group-info p {
+  color: #666;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.admin-info {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.join-group-btn {
+  background: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.join-group-btn:hover {
+  background: #218838;
+}
+
+.no-groups {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.no-groups p {
+  color: #666;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .groups-container {
+    padding: 20px;
+  }
+  
+  .groups-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .group-item {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .group-actions {
+    width: 100%;
+  }
+  
+  .join-group-btn {
+    width: 100%;
+  }
+}
