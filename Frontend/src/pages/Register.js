@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { checkUsername } from '../api/auth';
 import './Register.css';
 
 const Register = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     email: '',
+    username: '',
+    phone: '',
     otp: '',
     name: '',
     password: '',
@@ -15,6 +18,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [usernameStatus, setUsernameStatus] = useState(null);
   
   const { registerUser, verifyOtpCode } = useAuth();
   const navigate = useNavigate();
@@ -26,12 +30,46 @@ const Register = () => {
     });
   };
 
+  const checkUsernameAvailability = async (username) => {
+    if (username.length < 3) {
+      setUsernameStatus(null);
+      return;
+    }
+
+    try {
+      const response = await checkUsername(username);
+      setUsernameStatus(response.data);
+    } catch (error) {
+      setUsernameStatus({ available: false, message: 'Error checking username' });
+    }
+  };
+
   const handleSendOtp = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    const result = await registerUser(formData.email);
+    // Validate username format
+    const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+    if (!usernameRegex.test(formData.username)) {
+      setError('Username must be 3-20 characters long and contain only letters, numbers, and underscores');
+      setLoading(false);
+      return;
+    }
+
+    // Validate phone format
+    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      setError('Please enter a valid phone number');
+      setLoading(false);
+      return;
+    }
+
+    const result = await registerUser({
+      email: formData.email,
+      username: formData.username,
+      phone: formData.phone
+    });
     
     if (result.success) {
       setSuccess(result.message);
@@ -59,7 +97,7 @@ const Register = () => {
 
     setLoading(true);
 
-    const result = await verifyOtpCode(formData.email, formData.otp, formData.name, formData.password);
+    const result = await verifyOtpCode(formData.email, formData.otp, formData.username, formData.name, formData.phone, formData.password);
     
     if (result.success) {
       setSuccess(result.message);
@@ -96,6 +134,43 @@ const Register = () => {
                 onChange={handleChange}
                 required
                 placeholder="Enter your email address"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={(e) => {
+                  handleChange(e);
+                  checkUsernameAvailability(e.target.value);
+                }}
+                required
+                placeholder="Choose a unique username"
+                minLength="3"
+                maxLength="20"
+              />
+              <small className="help-text">3-20 characters, letters, numbers, and underscores only</small>
+              {usernameStatus && (
+                <div className={`username-status ${usernameStatus.available ? 'available' : 'unavailable'}`}>
+                  {usernameStatus.available ? '✅' : '❌'} {usernameStatus.message}
+                </div>
+              )}
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                placeholder="Enter your phone number"
               />
             </div>
             

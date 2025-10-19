@@ -6,7 +6,9 @@ USE emotli_chat;
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     is_volunteer BOOLEAN DEFAULT FALSE,
     preferred_chat_type ENUM('general', 'anxiety', 'depression', 'relationships', 'grief', 'addiction') DEFAULT 'general',
@@ -108,6 +110,8 @@ CREATE TABLE therapy_messages (
 
 -- Indexes for better performance
 CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_users_phone ON users(phone);
 CREATE INDEX idx_messages_sender_receiver ON messages(sender_id, receiver_id);
 CREATE INDEX idx_messages_timestamp ON messages(timestamp);
 CREATE INDEX idx_group_messages_group ON group_messages(group_id);

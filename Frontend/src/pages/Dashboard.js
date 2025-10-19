@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SocketContext } from '../context/SocketContext';
 import { searchUsers, getFriends, getFriendRequests } from '../api/chat';
+import NormalChat from './NormalChat';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -84,13 +85,19 @@ const Dashboard = () => {
             👥 Friends
           </button>
           <button 
+            className={activeTab === 'normal-chat' ? 'active' : ''} 
+            onClick={() => setActiveTab('normal-chat')}
+          >
+            💬 Normal Chat
+          </button>
+          <button 
             className={activeTab === 'search' ? 'active' : ''} 
             onClick={() => setActiveTab('search')}
           >
             🔍 Find People
           </button>
           <Link to="/groups" className="nav-link">
-            💬 Groups
+            👥 Groups
           </Link>
           <Link to="/therapy" className="nav-link">
             🧘 Therapy
@@ -98,6 +105,10 @@ const Dashboard = () => {
         </nav>
 
         <div className="dashboard-main">
+          {activeTab === 'normal-chat' && (
+            <NormalChat />
+          )}
+
           {activeTab === 'friends' && (
             <div className="friends-section">
               <h2>Your Friends</h2>

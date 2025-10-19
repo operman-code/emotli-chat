@@ -82,6 +82,27 @@
   text-decoration: underline;
 }
 
+.help-text {
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.username-status {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.username-status.available {
+  color: #28a745;
+}
+
+.username-status.unavailable {
+  color: #dc3545;
+}
+
 @media (max-width: 480px) {
   .register-card {
     padding: 30px 20px;

@@ -41,8 +41,8 @@ export const searchUsers = async (req, res) => {
     const currentUserId = req.user.id;
     
     const [rows] = await pool.query(
-      'SELECT id, name, email, is_volunteer FROM users WHERE (name LIKE ? OR email LIKE ?) AND id != ? LIMIT 20',
-      [`%${query}%`, `%${query}%`, currentUserId]
+      'SELECT id, username, name, email, phone, is_volunteer, is_online FROM users WHERE (username LIKE ? OR name LIKE ? OR email LIKE ?) AND id != ? LIMIT 20',
+      [`%${query}%`, `%${query}%`, `%${query}%`, currentUserId]
     );
     res.json(rows);
   } catch (err) {
