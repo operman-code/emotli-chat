@@ -1,6 +1,7 @@
 {
   "name": "emotli-backend",
   "version": "1.0.0",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -15,7 +16,8 @@
     "socket.io": "^4.5.1",
     "dotenv": "^16.0.3",
     "cors": "^2.8.5",
-    "helmet": "^7.0.0"
+    "helmet": "^7.0.0",
+    "cookie-parser": "^1.4.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
